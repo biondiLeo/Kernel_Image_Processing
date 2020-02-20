@@ -5,6 +5,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+
 #include <array>
 
 using namespace cv;
@@ -83,6 +84,8 @@ public:
 	void setChannels(int ch) {
 		Image::channels = ch;
 	}
+
+	bool compareImages(Image img1, Image img2);
 
 	~Image() {
 		pixels.release();

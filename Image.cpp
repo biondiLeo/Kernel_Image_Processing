@@ -62,3 +62,31 @@ Mat Image::getPixels()
 {
 	return this->pixels;
 }
+
+bool Image::compareImages(Image img1, Image img2)
+{
+	int check = 0;
+	if (img1.getHeight() != img2.getHeight() || img1.getWidth() != img2.getWidth())
+	{
+		return false;
+	}
+	else
+	{
+		for (int i = 0; i < img1.getHeight(); i++)
+		{
+			for (int j = 0; j < img1.getWidth(); j++)
+			{
+				if (img1.getPixel(i, j) != img2.getPixel(i, j))
+				{
+					check = -1;
+				}
+			}
+		}
+
+		if (check == 0)
+			return true;
+		else
+			return false;
+
+	}
+}
