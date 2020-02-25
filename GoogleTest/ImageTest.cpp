@@ -26,6 +26,7 @@ TEST(Image, Test_Channels) {
 	Image img;
 	img.setChannels(1);
 
+<<<<<<< HEAD
 	EXPECT_EQ(1, img.getChannels());
 }
 
@@ -38,6 +39,9 @@ TEST(Image, Test_Pixel)
 
 	EXPECT_EQ(1, img.getPixel(0, 0));
 	EXPECT_EQ(1, img.getPixel(1, 1));
+=======
+	EXPECT_EQ(1,img.getChannels());
+>>>>>>> 79e62408098e0c9aa7e51cf5962ed7eff25fc5b3
 }
 
 //Test compare between two images
@@ -55,7 +59,10 @@ TEST(Image, Test_Compare) {
 	EXPECT_TRUE(result);
 }
 
+<<<<<<< HEAD
 //Test load and save 
+=======
+>>>>>>> 79e62408098e0c9aa7e51cf5962ed7eff25fc5b3
 TEST(Image, Test_Load_AND_Save)
 {
 	Image img1;
@@ -67,17 +74,24 @@ TEST(Image, Test_Load_AND_Save)
 	string image2_Name("lena_TestLoad.ppm");
 	img2.Load(image2_Name);
 
+<<<<<<< HEAD
+=======
+	//compare between two images
+>>>>>>> 79e62408098e0c9aa7e51cf5962ed7eff25fc5b3
 	bool result = img1.compareImages(img1, img2);
 
 	EXPECT_TRUE(result);
 }
 
+<<<<<<< HEAD
 //Test gaussian blur process
 TEST(Image, Test_GaussianBlur) {
 	Image dst;
 	Image img;
 	string imageName("old_man.pgm");
 	img.Load(imageName);
+=======
+>>>>>>> 79e62408098e0c9aa7e51cf5962ed7eff25fc5b3
 
 	Image imgGIMP;
 	string imageGIMP_Name("old_man_GaussianBlur.pgm");
