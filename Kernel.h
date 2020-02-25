@@ -1,8 +1,16 @@
-#ifndef KERNEL
-#define KERNEL
+/*
+.
+.  Kernel Image Processing
+.
+.  Author: Leonardo Biondi
+.
+*/
+
+#ifndef KERNEL_H
+#define KERNEL_H
 
 #include "Image.h"
-#include "KernelUtils.h"
+#include "Convolution.h"
 
 using namespace std;
 
@@ -34,7 +42,7 @@ private:
 class SobelEdge {
 public:
 	SobelEdge() = default;
-	float* getGx() { return (*Gx); }; 
+	float* getGx() { return (*Gx); };
 	float* getGy() { return (*Gy); };
 private:
 	float Gx[3][3] = {
@@ -72,4 +80,4 @@ private:
 		0, 1, 2
 	};
 };
-#endif //KERNEL
+#endif // !KERNEL_H

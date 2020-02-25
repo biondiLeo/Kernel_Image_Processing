@@ -1,5 +1,14 @@
-#ifndef KIPTEMPLATE
-#define KIPTEMPLATE
+/*
+.
+.  Kernel Image Processing
+.
+.  Author: Leonardo Biondi
+.
+*/
+
+#ifndef KIPTEMPLATE_H
+#define KIPTEMPLATE_H
+
 #include <iostream>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -7,7 +16,7 @@
 #include <opencv2/imgproc.hpp>
 #include "Image.h"
 #include "Kernel.h"
-#include "KernelUtils.h"
+#include "Convolution.h"
 
 template <typename T>
 class KipTemplate {
@@ -21,15 +30,15 @@ private:
 };
 
 
-//gaussian blur / sharpen / box blur 
+//gaussian blur -- sharpen -- box blur 
 template<typename T>
 Image KipTemplate<T>::process() {
-	array<Mat, 3> bgr;   //destination array
+	array<Mat, 3> bgr;
 	bgr = src.getBGRChannels();
-	array<Mat, 3> dstbgr; //crea un'immagine di destinazione vuota
+	array<Mat, 3> dstbgr;
 	for (int i = 0; i < src.getChannels(); ++i) {
 		dstbgr[i] = Mat::zeros(Size(src.getWidth(), src.getHeight()), CV_8UC1);
-		KernelUtils::noBorderProcessing(bgr[i], dstbgr[i], kernel);
+		Convolution::convolutionProcess(bgr[i], dstbgr[i], kernel);
 	}
 	Image dst = Image(dstbgr);
 	return dst;
@@ -39,7 +48,7 @@ template <>
 class KipTemplate<SobelEdge>
 {
 public:
-	KipTemplate(Image s, float *x, float *y) : src(s), Gx(*reinterpret_cast<float(*)[3][3]> (x)), Gy(*reinterpret_cast<float(*)[3][3]> (y)) {};  
+	KipTemplate(Image s, float *x, float *y) : src(s), Gx(*reinterpret_cast<float(*)[3][3]> (x)), Gy(*reinterpret_cast<float(*)[3][3]> (y)) {};
 	Image process()
 	{
 		float pixel_x;
@@ -71,19 +80,18 @@ public:
 		}
 		catch (out_of_range &ex) {
 			cerr << ex.what() << endl;
-			cout << "Something's wrong with the indexes, please check" << endl;
 		}
 		delete src_gray;
 		return dst;
 	};
 private:
 	Image src;
-	float (*Gx)[3];
-	float (*Gy)[3];
+	float(*Gx)[3];
+	float(*Gy)[3];
 };
 
 
-//EdegeDetection e Eboss hanno l'elaborazione del kernel identica
+//EdegeDetection -- Emboss 
 template <>
 class KipTemplate<EdgeDetection>
 {
@@ -97,7 +105,7 @@ public:
 		else
 			*src_gray = Image(src);
 		Image dst = Image(*src_gray);
-		KernelUtils::noBorderProcessing(src_gray->getPixels(), dst.getPixels(), kernel);
+		Convolution::convolutionProcess(src_gray->getPixels(), dst.getPixels(), kernel);
 		delete src_gray;
 		return dst;
 	}
@@ -110,6 +118,7 @@ template<>
 class KipTemplate<Emboss>
 {
 public:
+
 	KipTemplate(Image s, float* k) : src(s), kernel(k) {};
 	Image process()
 	{
@@ -119,7 +128,7 @@ public:
 		else
 			*src_gray = Image(src);
 		Image dst = Image(*src_gray);
-		KernelUtils::noBorderProcessing(src_gray->getPixels(), dst.getPixels(), kernel);
+		Convolution::convolutionProcess(src_gray->getPixels(), dst.getPixels(), kernel);
 		delete src_gray;
 		return dst;
 	}
@@ -129,5 +138,5 @@ private:
 };
 
 
-#endif // !KIPTEMPLATE
+#endif // !KIPTEMPLATE_H
 

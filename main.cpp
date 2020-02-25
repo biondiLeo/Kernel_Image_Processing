@@ -1,3 +1,10 @@
+/*
+.
+.  Kernel Image Processing
+.
+.  Author: Leonardo Biondi
+.
+*/
 
 #include <iostream>
 #include<stdio.h>
@@ -7,21 +14,22 @@
 #include "Image.h"
 #include "KipTemplate.h"
 
-
 using namespace std;
 using namespace cv;
 
 int main() {
 	cout << endl << "============= IMAGE CONVOLUTION ==============" << endl << endl;
 
-	string imageName("lena.ppm");
-	cout << " ...Loading image located at " << imageName << "..." << endl << endl;
+	string imageName("old_man.pgm");
+	cout << " ... Loading image: " << imageName << "..." << endl << endl;
 	Image img;
 	try {
 		img.Load(imageName);
 	}
 	catch (invalid_argument &ex) {
-		cout << "Exiting the program" << endl;
+		cerr << "Error: " << ex.what() << endl;
+		cout << "... Exiting the program" << endl << endl;
+		system("pause");
 		exit(-1);
 	}
 	int option = -1;
@@ -53,17 +61,17 @@ int main() {
 			dst.Save("GaussianBlur.pgm");
 		break;
 	}
-	
+
 	case 2:
-	{	
+	{
 		SobelEdge* se = new SobelEdge();
-		KipTemplate<SobelEdge>* tmpGb = new KipTemplate<SobelEdge>(img, se->getGx(), se->getGy());  
+		KipTemplate<SobelEdge>* tmpGb = new KipTemplate<SobelEdge>(img, se->getGx(), se->getGy());
 		dst = tmpGb->process();
-	
+
 		dst.Save("SobelEdge.pgm");
 		break;
 	}
-	
+
 	case 3:
 	{
 		Sharpen* s = new Sharpen();
@@ -76,11 +84,11 @@ int main() {
 			dst.Save("Sharpen.pgm");
 		break;
 	}
-		
+
 	case 4:
 	{
 		EdgeDetection* ed = new EdgeDetection();
-		KipTemplate<EdgeDetection>* tmpS = new KipTemplate<EdgeDetection>(img, ed->getKernel()); 
+		KipTemplate<EdgeDetection>* tmpS = new KipTemplate<EdgeDetection>(img, ed->getKernel());
 		dst = tmpS->process();
 
 		dst.Save("EdgeDetection.pgm");
@@ -99,13 +107,14 @@ int main() {
 			dst.Save("Emboss.pgm");
 		break;
 	}
-	
+
 	default:
 		exit(-2);
 	}
 
 	cout << endl << " ...Display original image and processed image" << endl;
 	cout << endl << "==============================================" << endl;
+
 	img.Show("Original Image");
 	dst.Show("Processed Image");
 

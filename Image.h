@@ -1,18 +1,25 @@
-#ifndef PBM_IMAGE_H
-#define PBM_IMAGE_H
+/*
+.
+.  Kernel Image Processing
+.
+.  Author: Leonardo Biondi
+.
+*/
+
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-
 #include <array>
 
 using namespace cv;
 using namespace std;
 
 class Image {
-public: 
+public:
 	void Load(const String &path);
 
 	void Save(const String &name);
@@ -87,6 +94,8 @@ public:
 
 	bool compareImages(Image img1, Image img2);
 
+	Image ConvertColor(Image src);
+
 	~Image() {
 		pixels.release();
 	}
@@ -101,4 +110,4 @@ private:
 };
 
 
-#endif //PBM_IMAGE_H
+#endif // !IMAGE_H
