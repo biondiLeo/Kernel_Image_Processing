@@ -16,7 +16,12 @@ The filters available in this project are the following:
   
 The convolution process of this project takes place on ppm and pgm images
 
-Below is an example photo of the processing with sobel edge kernel:
+Below is an example photo of the convolution process:
 
 [![Sobel Edge example](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/ExampleKip.PNG)](#features)
+
+[![Emboss example](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/ExampleEmbossKip.png)](#features)
+
+[![Sharpen example](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/ExampleSharpenKip.png)](#features)
+
 
