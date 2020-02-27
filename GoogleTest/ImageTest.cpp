@@ -7,9 +7,7 @@
 #include "Image.h"
 #include "Kernel.h"
 #include "KipTemplate.h"
-#include "Convolution.h"
 #include "Image.cpp"
-#include "Convolution.cpp"
 
 //Test dimensions
 TEST(Image, Test_Dimensions) {
@@ -35,7 +33,7 @@ TEST(Image, Test_Pixel)
 	Image img;
 	string imageName("mypgm.pgm");
 	img.Load(imageName);
-
+	
 	EXPECT_EQ(1, img.getPixel(0, 0));
 	EXPECT_EQ(1, img.getPixel(1, 1));
 }
@@ -45,13 +43,13 @@ TEST(Image, Test_Compare) {
 	Image img;
 	string imageName("sheldonCooper.pgm");
 	img.Load(imageName);
-
+	
 	Image imgGIMP;
 	string imageGIMP_Name("sheldonCooper.pgm");
 	imgGIMP.Load(imageGIMP_Name);
 
-	bool result = img.compareImages(img, imgGIMP);
-
+	bool result = img.compareImages(imgGIMP);
+	
 	EXPECT_TRUE(result);
 }
 
@@ -67,10 +65,11 @@ TEST(Image, Test_Load_AND_Save)
 	string image2_Name("lena_TestLoad.ppm");
 	img2.Load(image2_Name);
 
-	bool result = img1.compareImages(img1, img2);
+	bool result = img1.compareImages(img2);
 
 	EXPECT_TRUE(result);
 }
+
 
 //Test gaussian blur process
 TEST(Image, Test_GaussianBlur) {
@@ -88,7 +87,7 @@ TEST(Image, Test_GaussianBlur) {
 	KipTemplate<Gaussian_Blur>* tmpGb = new KipTemplate<Gaussian_Blur>(img, gb->getKernel());
 	dst = tmpGb->process();
 
-	bool result = dst.compareImages(dst, dstGIMP);
+	bool result = dst.compareImages(dstGIMP);
 
 	EXPECT_TRUE(result);
 }
@@ -109,7 +108,7 @@ TEST(Image, Test_SobelEdge) {
 	KipTemplate<SobelEdge>* tmpGb = new KipTemplate<SobelEdge>(img, se->getGx(), se->getGy());
 	dst = tmpGb->process();
 
-	bool result = dst.compareImages(dst, dstGIMP);
+	bool result = dst.compareImages(dstGIMP);
 
 	EXPECT_TRUE(result);
 }
@@ -130,7 +129,7 @@ TEST(Image, Test_Sharpen) {
 	KipTemplate<Sharpen>* tmpS = new KipTemplate<Sharpen>(img, s->getKernel());
 	dst = tmpS->process();
 
-	bool result = dst.compareImages(dst, dstGIMP);
+	bool result = dst.compareImages(dstGIMP);
 
 	EXPECT_TRUE(result);
 }
@@ -151,7 +150,7 @@ TEST(Image, Test_EdgeDetection) {
 	KipTemplate<EdgeDetection>* tmpS = new KipTemplate<EdgeDetection>(img, ed->getKernel());
 	dst = tmpS->process();
 
-	bool result = dst.compareImages(dst, dstGIMP);
+	bool result = dst.compareImages(dstGIMP);
 
 	EXPECT_TRUE(result);
 }
@@ -172,7 +171,7 @@ TEST(Image, Test_Emboss) {
 	KipTemplate<Emboss>* tmpS = new KipTemplate<Emboss>(img, ess->getKernel());
 	dst = tmpS->process();
 
-	bool result = dst.compareImages(dst, dstGIMP);
+	bool result = dst.compareImages(dstGIMP);
 
 	EXPECT_TRUE(result);
 }

@@ -10,7 +10,6 @@
 #define KERNEL_H
 
 #include "Image.h"
-#include "Convolution.h"
 
 using namespace std;
 
@@ -42,7 +41,7 @@ private:
 class SobelEdge {
 public:
 	SobelEdge() = default;
-	float* getGx() { return (*Gx); };
+	float* getGx() { return (*Gx); }; 
 	float* getGy() { return (*Gy); };
 private:
 	float Gx[3][3] = {

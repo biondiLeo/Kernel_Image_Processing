@@ -10,11 +10,51 @@
 #include <stdlib.h>
 #include "Image.h"
 
+// costructor used to initialize an empty image
+Image::Image()
+{
+	this->pixels = NULL;
+}
+
+// other costructors
+Image::Image(const Image& src)
+{
+	this->pixels = src.pixels.clone();
+	this->width = src.width;
+	this->height = src.height;
+	this->channels = src.channels;
+}
+
+Image::Image(array<Mat, 3> ch)
+{
+	Mat dst;
+	int val;
+	if (channels > 1)
+		merge(ch, dst);
+	else {
+		dst = ch[0];
+		val = dst.at<uchar>(0, 0);
+	}
+	pixels = dst.clone();
+	channels = pixels.channels();
+	width = pixels.cols;
+	height = pixels.rows;
+}
+
+Image::Image(Mat pix)
+{
+	pixels = pix.clone();
+	channels = pixels.channels();
+	width = pixels.cols;
+	height = pixels.rows;
+}
+
+
 //Load an image
 void Image::Load(const String &path)
 {
 	Mat temp = imread(path, IMREAD_COLOR);
-	if (temp.empty())
+	if (temp.empty())                      
 	{
 		throw invalid_argument("Couldn't find any image, please check the path");
 	}
@@ -31,7 +71,7 @@ void Image::Save(const String &name)
 }
 
 //Get pixel in the chosen position 
-uchar Image::getPixel(int i, int j)
+uchar Image::getPixel(int i, int j) const
 {
 	if (i<0 || i>height || j<0 || j>width)
 		throw out_of_range("Index i=" + to_string(i) + ", j=" + to_string(j) + " out of bound");
@@ -40,7 +80,7 @@ uchar Image::getPixel(int i, int j)
 }
 
 //Get bgr channels
-array<Mat, 3> Image::getBGRChannels()
+array<Mat, 3> Image::getBGRChannels() const
 {
 	array<Mat, 3> bgr;
 	if (channels > 1) {
@@ -75,26 +115,26 @@ void Image::setPixel(int i, int j, int value)
 }
 
 //Get all pixels
-Mat Image::getPixels()
+Mat Image::getPixels() const
 {
 	return this->pixels;
 }
 
 //Compare two images
-bool Image::compareImages(Image img1, Image img2)
+bool Image::compareImages(Image img)
 {
 	int check = 0;
-	if (img1.getHeight() != img2.getHeight() || img1.getWidth() != img2.getWidth())
+	if (this->getHeight() != img.getHeight() || this->getWidth() != img.getWidth())
 	{
 		return false;
 	}
 	else
 	{
-		for (int i = 0; i < img1.getHeight(); i++)
+		for (int i = 0; i < this->getHeight(); i++)
 		{
-			for (int j = 0; j < img1.getWidth(); j++)
+			for (int j = 0; j < this->getWidth(); j++)
 			{
-				if (img1.getPixel(i, j) != img2.getPixel(i, j))
+				if (this->getPixel(i, j) != img.getPixel(i, j))
 				{
 					check = -1;
 				}

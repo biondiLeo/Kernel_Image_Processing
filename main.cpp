@@ -20,7 +20,7 @@ using namespace cv;
 int main() {
 	cout << endl << "============= IMAGE CONVOLUTION ==============" << endl << endl;
 
-	string imageName("old_man.pgm");
+	string imageName("fruit.ppm");
 	cout << " ... Loading image: " << imageName << "..." << endl << endl;
 	Image img;
 	try {
@@ -51,6 +51,7 @@ int main() {
 	switch (option) {
 	case 1:
 	{
+		
 		Gaussian_Blur* gb = new Gaussian_Blur();
 		KipTemplate<Gaussian_Blur>* tmpGb = new KipTemplate<Gaussian_Blur>(img, gb->getKernel());
 		dst = tmpGb->process();
@@ -61,19 +62,20 @@ int main() {
 			dst.Save("GaussianBlur.pgm");
 		break;
 	}
-
+	
 	case 2:
-	{
+	{	
 		SobelEdge* se = new SobelEdge();
-		KipTemplate<SobelEdge>* tmpGb = new KipTemplate<SobelEdge>(img, se->getGx(), se->getGy());
+		KipTemplate<SobelEdge>* tmpGb = new KipTemplate<SobelEdge>(img, se->getGx(), se->getGy());  
 		dst = tmpGb->process();
-
+	
 		dst.Save("SobelEdge.pgm");
 		break;
 	}
-
+	
 	case 3:
 	{
+		
 		Sharpen* s = new Sharpen();
 		KipTemplate<Sharpen>* tmpS = new KipTemplate<Sharpen>(img, s->getKernel());
 		dst = tmpS->process();
@@ -84,11 +86,12 @@ int main() {
 			dst.Save("Sharpen.pgm");
 		break;
 	}
-
+		
 	case 4:
 	{
+		
 		EdgeDetection* ed = new EdgeDetection();
-		KipTemplate<EdgeDetection>* tmpS = new KipTemplate<EdgeDetection>(img, ed->getKernel());
+		KipTemplate<EdgeDetection>* tmpS = new KipTemplate<EdgeDetection>(img, ed->getKernel()); 
 		dst = tmpS->process();
 
 		dst.Save("EdgeDetection.pgm");
@@ -107,7 +110,7 @@ int main() {
 			dst.Save("Emboss.pgm");
 		break;
 	}
-
+	
 	default:
 		exit(-2);
 	}

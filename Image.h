@@ -19,83 +19,65 @@ using namespace cv;
 using namespace std;
 
 class Image {
-public:
-	void Load(const String &path);
+public: 
 
-	void Save(const String &name);
+	// constructors
+	Image();
 
-	void Show(const String &imName);
+	Image(const Image& src);
 
-	Image * ConvertRGB2BW(Image * src);
+	explicit Image(array<Mat, 3> ch);
+	
+	explicit Image(Mat pix);
 
-	Image(const Image& src) {
-		this->pixels = src.pixels.clone();
-		this->width = src.width;
-		this->height = src.height;
-		this->channels = src.channels;
-	}
+	// GET methods
+	uchar getPixel(int i, int j) const;
+	
+	array<Mat, 3> getBGRChannels() const;
 
-	uchar getPixel(int i, int j);
-
-	void setPixel(int i, int j, int value);
-
-	array<Mat, 3> getBGRChannels();
-	Mat getPixels();
-
-	explicit Image(array<Mat, 3> ch) {
-		Mat dst;
-		int val;
-		if (channels > 1)
-			merge(ch, dst);
-		else {
-			dst = ch[0];
-			val = dst.at<uchar>(0, 0);
-		}
-		this->pixels = dst.clone();
-		this->channels = pixels.channels();
-		this->width = pixels.cols;
-		this->height = pixels.rows;
-	}
-
-	explicit Image(Mat pix) {
-		this->pixels = pix.clone();
-		this->channels = pixels.channels();
-		this->width = pixels.cols;
-		this->height = pixels.rows;
-	}
-
-	Image() {
-		this->pixels = NULL;
-	}
+	Mat getPixels() const;
 
 	int getWidth() const {
 		return width;
-	}
-
-	void setWidth(int width) {
-		Image::width = width;
 	}
 
 	int getHeight() const {
 		return height;
 	}
 
-	void setHeight(int height) {
-		Image::height = height;
-	}
-
 	int getChannels() const {
 		return channels;
 	}
 
-	void setChannels(int ch) {
-		Image::channels = ch;
+	// SET methods
+	void setPixel(int i, int j, int value);
+
+	void setWidth(int width) {
+		this->width = width;
 	}
 
-	bool compareImages(Image img1, Image img2);
+	void setHeight(int height) {
+		this->height = height;
+	}
+
+	void setChannels(int chanels) {
+		this->channels = chanels;
+	}
+
+	// other methods
+	bool compareImages(Image img);
+
+	Image* ConvertRGB2BW(Image * src);
 
 	Image ConvertColor(Image src);
 
+	void Load(const String &path);
+
+	void Save(const String &name);
+
+	void Show(const String &imName);
+
+	// destructor
 	~Image() {
 		pixels.release();
 	}
