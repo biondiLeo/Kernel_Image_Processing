@@ -14,9 +14,10 @@ The filters available in this project are the following:
  - Edge Detection
  - Emboss
   
-The convolution process takes place on ppm and pgm images
+The convolution process of this project takes place on ppm and pgm images
 
 Below is an example photo of the processing with sobel edge kernel:
 
 [![Sobel Edge example](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/ExampleKip.PNG)](#features)
 
+Author: Leonardo Biondi
