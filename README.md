@@ -1,8 +1,8 @@
 # Kernel_Image_Processing
 
-Image processing through a kernel.
-It is used for blurring, sharpening, embossing, edge detection and more. 
-The process occurs through a convolution between a kernel and an image.
+Thsi project concerns image processing through a mask called kernel.
+(it is used for blurring, sharpening, embossing, edge detection and more). 
+The process takes place through a convolution between a kernel and an image.
 Below is an example of animation of how the convolution process works:
 
 [![3D Convolution Animation](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/3D_Convolution_Animation.gif)](#features)
