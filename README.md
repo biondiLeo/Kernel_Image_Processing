@@ -20,4 +20,3 @@ Below is an example photo of the processing with sobel edge kernel:
 
 [![Sobel Edge example](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/ExampleKip.PNG)](#features)
 
-Author: Leonardo Biondi
