@@ -1,6 +1,6 @@
 # Kernel_Image_Processing
 
-Thsi project concerns image processing through a mask called kernel.
+Thsi project concerns image processing through a mask called kernel
 (it is used for blurring, sharpening, embossing, edge detection and more). 
 The process takes place through a convolution between a kernel and an image.
 Below is an example of animation of how the convolution process works:
