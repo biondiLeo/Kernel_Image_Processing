@@ -3,6 +3,9 @@
 Image processing through a kernel.
 It is used for blurring, sharpening, embossing, edge detection and more. 
 The process occurs through a convolution between a kernel and an image.
+Below is an example of animation of how the convolution process works:
+
+[![3D Convolution Animation](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/3D_Convolution_Animation.gif)](#features)
 
 The filters available in this project are the following:
  - Gaussian Blur
@@ -12,3 +15,8 @@ The filters available in this project are the following:
  - Emboss
   
 The convolution process takes place on ppm and pgm images
+
+Below is an example photo of the processing with sobel edge kernel:
+
+[![Sobel Edge example](https://github.com/biondiLeo/Kernel_Image_Processing/blob/master/test%20images/Examples%20KIP/ExampleKip.PNG)](#features)
+
